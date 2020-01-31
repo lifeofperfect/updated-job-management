@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block stylesheet %}
+    <style>
+        .split {
+        height: 100%;
+        width: 50%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+  
+    .left {
+        left: 0;
+        background-color: #F5F5F5;
+        color: #4D4D4D;
+    }
+    
+    .right {
+        right: 0;
+        background-color: #00BFFF;
+        padding-top:50px;
+        color: white;
+    }
+    </style>
+  
+{% endblock %}
+
+{% block content %}
+  <div class="split left">
+  <div class='container-fluid'>
+    {% include 'navbar.html' %}
+  </div>
+  
+    <div class='container'>
+        <div class='jumbotron'>
+            <h3>ID: <span>{{ alerts.id }}</span></h3>
+            <h3>Exception Category: <span>{{ alerts.Exception_Category }}</span></h3>
+            <h3>Affiliate Code: <span>{{ alerts.Affiliate_Code }}</span></h3>
+            <h3>Affiliate Name: <span>{{ alerts.Affiliate_Name }}</span></h3>
+            <h3>InitiatingBranch: <span>{{ alerts.Initiating_Branch }}</span></h3>
+            <h3>Zone: <span>{{ alerts.Zone }}</span></h3>
+            <h3>Region: <span>{{ alerts.Region }}</span></h3>
+            <h3>AcccountNumber: <span>{{ alerts.Acccount_Number }}</span></h3>
+            <h3>Account Name: <span>{{ alerts.Account_Name }}</span></h3>
+            <h3>DateDiscovered: <span>{{ alerts.Date_Discovered }}</span></h3>
+            <h3>Currency: <span>{{ alerts.Currency }}</span></h3>
+            <h3>LCYUSDRATE: <span>{{ alerts.LCY_USD_RATE }}</span></h3>
+            <h3>AmountInvolvedLCY: <span></span>{{ alerts.Amount_Involved_LCY }}</h3>
+            <h3>AmountatRiskLCY: <span>{{ alerts.Amount_at_Risk_LCY }}</span></h3>
+            <h3>Inputter: <span>{{ alerts.Inputter }}</span></h3>
+            <h3>USERIDInputter: <span>{{ alerts.USERID_Inputter }}</span></h3>
+            <h3>USERIDAuthoriser: <span>{{ alerts.USERID_Authoriser }}</span></h3>
+            <h3>Month: <span>{{ alerts.Month }}</span></h3>
+            <h3>Count: <span>{{ alerts.Count2 }}</span></h3>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="split right">
+  
+  <div class='container'>
+  <main class="flex-shrink-0" role="main">
+  <div class="container">
+    <ol class="breadcrumb my-4">
+                <li class="breadcrumb-item active"><h1><h1 class="mt-5">Form</h1></h1></li>
+    </ol>
+  </div>
+</main>
+    <form method="post" action="">
+            <div class="container">
+                {% csrf_token %}
+                {{ forms|crispy }}
+                <div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Comment
+						</button>
+            </div>
+        </form>
+        </div>
+  </div>
+</div>
+
+{% endblock %}

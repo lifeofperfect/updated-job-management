@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container-fluid'>
+    <div class="row mt-7">
+        <table id='alertTable' class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Exception</th>
+                <th>Affiliate Code</th>
+                <th>Account Name</th>
+                <th>Acccount Number</th>
+                <th>Initiating Branch</th>
+                <th>Account Class</th>
+                <th>Tier</th>
+                <th>CURRENCY</th>
+                <th>Amount Involved LCY</th>
+                <th>AcctOnPND</th>
+                <th>Avail. Balance</th>
+                <th>DATE DISCOVERED</th>
+                <th>Action</th>
+            </tr>
+            {% if queryset %}
+                
+            <tbody id="tests-table">
+                    
+            </tbody>
+                
+            {% endif %}
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        var myArray = []
+
+        var dataUrl = '/api/unreacted/'
+
+        $.ajax({
+        method:'GET',
+        url: dataUrl,
+        success: function(response) {
+            myArray = response;
+            console.log(myArray.id)
+            for (var i in myArray){
+            addRow(myArray[i])
+        }
+        }
+    })
+
+    function addRow(obj){
+            var row = `<tr scope="row" class="alert-row-${obj.id}">
+                           <td id="exception-${obj.id}" data-testid="${obj.id}"">${obj.id}</td>
+                           <td></td>
+                           <td>
+                                   <button class="btn btn-sm btn-danger" data-testid=${obj.id} id="delete-${obj.id}">Delete</button>
+                                   <button class="btn btn-sm btn-info" disabled data-testid="${obj.id}"  id="save-${obj.id}">Save</button>
+                                   
+                                   <button class="btn btn-sm btn-danger hidden" data-testid="${obj.id}"  id="cancel-${obj.id}">Cancel</button>
+                                   <button class="btn btn-sm btn-primary hidden" data-testid="${obj.id}"  id="confirm-${obj.id}">Confirm</button>
+                                   
+                           </td>
+                       </tr>`
+            $('#tests-table').append(row)
+    
+        }
+
+    function buildTable(data) {
+        var table = document.getElementById('tableId')
+
+        for(var i=0; i<data.length; i++) {
+            var row = `
+                <tr>
+                    <td>${data[i].id}</td>
+                    <td>${data[i].exception}</td>
+                    <td>${data[i].affiliateCode}</td>
+                    <td>${data[i].accountName}</td>
+                    <td>${data[i].accountNumber}</td>
+                    <td>${data[i].branch}</td>
+                    <td>${data[i].class}</td>
+                    <td>${data[i].tier}</td>
+                    <td>${data[i].currency}</td>
+                    <td>${data[i].LcyAmountInvolved}</td>
+                    <td>${data[i].pnd}</td>
+                    <td>${data[i].balance}</td>
+                    <td>${data[i].dateDiscovered}</td>
+                </tr>
+            `
+            table.innerHTML += row;
+        }
+    }
+    </script>
+{% endblock %}
