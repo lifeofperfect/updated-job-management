@@ -1,1 +1,1 @@
-web: gunicorn aclproject.wsgi
+web: gunicorn aclproject.wsgi --log-file -
